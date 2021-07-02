@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -15,6 +16,7 @@ type Server struct {
 }
 
 func (s *Server) SayHello(ctx context.Context, message *chatpb.Message) (*chatpb.Message, error) {
+	log.Printf("Message from client: %v", message)
 	return &chatpb.Message{Body: "Hello from chatpb"}, nil
 }
 
@@ -23,6 +25,8 @@ func main() {
 
 	if err != nil {
 		log.Fatalf("Failed to listen port 9000 %v", err)
+	} else {
+		fmt.Println("Successfully start server on port 9000")
 	}
 
 	grpcServer := grpc.NewServer()
